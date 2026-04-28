@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>炸面兽 · 商家核销后台</title>
+    <script src="https://cdn.jsdelivr.net/npm/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+    <style>
+        * {margin:0; padding:0; box-sizing:border-box; font-family:"微软雅黑", sans-serif;}
+        body {background:#fff5e6; color:#333; padding:2rem;}
+        .admin-card {background:white; border-radius:12px; padding:2rem; max-width:600px; margin:0 auto; box-shadow:0 2px 10px rgba(0,0,0,0.1);}
+        #reader {width:100%; margin:1rem 0;}
+        .btn {background:#ff6b35; color:white; border:none; padding:0.8rem 1.5rem; border-radius:8px; cursor:pointer;}
+        #status {margin:1rem 0; font-size:1.2rem;}
+    </style>
+</head>
+<body>
+    <div class="admin-card">
+        <h2>炸面兽 · 核销后台</h2>
+        <div id="reader"></div>
+        <div id="status"></div>
+        <h3>核销记录</h3>
+        <ul id="record-list"></ul>
+    </div>
+
+    <script>
+        const html5QrCode = new Html5Qrcode("reader");
+        html5QrCode.start(
+            { facingMode: "environment" },
+            { fps:10, qrbox:250 },
+            qrCodeSuccessCallback,
+            (err) => console.error(err)
+        );
+
+        function qrCodeSuccessCallback(decodedText) {
+            const couponId = decodedText.replace('核销ID:','');
+            const coupon = JSON.parse(localStorage.getItem(couponId));
+            if (!coupon) {
+                document.getElementById('status').innerText = '无效券码';
+                return;
+            }
+            if (coupon.status === '已核销') {
+                document.getElementById('status').innerText = '券码已被使用';
+                return;
+            }
+            coupon.status = '已核销';
+            coupon.usedTime = new Date().toLocaleString();
+            localStorage.setItem(couponId, JSON.stringify(coupon));
+            document.getElementById('status').innerText = `核销成功！券码：${couponId}`;
+            updateRecords();
+        }
+
+        function updateRecords() {
+            const list = document.getElementById('record-list');
+            list.innerHTML = '';
+            for (let i=0; i<localStorage.length; i++) {
+                const key = localStorage.key(i);
+                if (key.startsWith('ZMS')) {
+                    const data = JSON.parse(localStorage.getItem(key));
+                    const li = document.createElement('li');
+                    li.innerText = `${key} - ${data.status} - ${data.time}${data.usedTime ? ' | 核销时间：'+data.usedTime : ''}`;
+                    list.appendChild(li);
+                }
+            }
+        }
+        updateRecords();
+    </script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>炸面兽 · 裹面炸串</title>
+    <style>
+        * {margin:0; padding:0; box-sizing:border-box; font-family:"微软雅黑", sans-serif;}
+        body {background:#fff5e6; color:#333;}
+        header {background:#ff6b35; color:white; padding:1rem; text-align:center;}
+        .logo {display:flex; align-items:center; justify-content:center; gap:1rem; margin-bottom:0.5rem;}
+        .logo img {width:80px; height:80px; border-radius:50%;}
+        .products {max-width:1200px; margin:2rem auto; padding:0 1rem; display:grid; grid-template-columns:repeat(auto-fit, minmax(280px,1fr)); gap:1.5rem;}
+        .product-card {background:white; border-radius:12px; overflow:hidden; box-shadow:0 2px 10px rgba(0,0,0,0.1);}
+        .product-card img {width:100%; height:200px; object-fit:cover;}
+        .product-info {padding:1rem;}
+        .btn {display:block; width:100%; background:#ff6b35; color:white; text-align:center; padding:0.8rem; border-radius:8px; text-decoration:none; margin-top:1rem;}
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="你的炸面兽图片地址" alt="炸面兽">
+            <div>
+                <h1>炸面兽</h1>
+                <p>外酥里嫩 · 裹面炸串</p>
+            </div>
+        </div>
+    </header>
+
+    <section class="products">
+        <div class="product-card">
+            <img src="https://via.placeholder.com/300x200" alt="招牌鸡肉串">
+            <div class="product-info">
+                <h3>招牌脆骨鸡肉串</h3>
+                <p>裹粉炸至金黄，外酥里嫩</p>
+                <p>原价：¥10 券后：¥5</p>
+            </div>
+        </div>
+        <div class="product-card">
+            <img src="https://via.placeholder.com/300x200" alt="秘制五花肉">
+            <div class="product-info">
+                <h3>秘制五花肉</h3>
+                <p>肥瘦相间，焦香四溢</p>
+                <p>原价：¥12 券后：¥7</p>
+            </div>
+        </div>
+        <div class="product-card">
+            <img src="https://via.placeholder.com/300x200" alt="素串套餐">
+            <div class="product-info">
+                <h3>素菜全家福</h3>
+                <p>土豆、茄子、金针菇，一次吃爽</p>
+                <p>原价：¥15 券后：¥9</p>
+            </div>
+        </div>
+    </section>
+
+    <div style="text-align:center; margin:2rem 0;">
+        <a href="coupon.html" class="btn" style="width:200px; margin:0 auto;">领取券包</a>
+    </div>
+</body>
+</html>

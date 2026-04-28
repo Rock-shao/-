@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>炸面兽 · 领券中心</title>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+    <style>
+        * {margin:0; padding:0; box-sizing:border-box; font-family:"微软雅黑", sans-serif;}
+        body {background:#fff5e6; color:#333; text-align:center; padding:2rem;}
+        .coupon-card {background:white; border-radius:12px; padding:2rem; max-width:400px; margin:0 auto; box-shadow:0 2px 10px rgba(0,0,0,0.1);}
+        .btn {background:#ff6b35; color:white; border:none; padding:1rem 2rem; border-radius:8px; font-size:1rem; cursor:pointer; margin-top:1rem;}
+        #qrcode {margin:2rem auto;}
+    </style>
+</head>
+<body>
+    <div class="coupon-card">
+        <h2>炸面兽专属券包</h2>
+        <p>满20减8 | 无门槛3元券 | 买一送一券</p>
+        <button class="btn" onclick="getCoupon()">一键领取券包</button>
+        <div id="qrcode"></div>
+        <p id="coupon-id" style="margin-top:1rem; color:#666;"></p>
+    </div>
+
+    <script>
+        function getCoupon() {
+            const couponId = 'ZMS' + Date.now() + Math.floor(Math.random()*1000);
+            const qrUrl = `核销ID:${couponId}`;
+            QRCode.toCanvas(document.getElementById('qrcode'), qrUrl, {width:200}, function(error) {
+                if (error) console.error(error);
+            });
+            document.getElementById('coupon-id').innerText = `核销码：${couponId}`;
+            localStorage.setItem(couponId, JSON.stringify({status:'未核销', time:new Date().toLocaleString()}));
+        }
+    </script>
+</body>
+</html>
